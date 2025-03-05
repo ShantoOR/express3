@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "express2.name" -}}
+{{- define "express-helm.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "express2.fullname" -}}
+{{- define "express-helm.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "express2.chart" -}}
+{{- define "express-helm.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "express2.labels" -}}
-helm.sh/chart: {{ include "express2.chart" . }}
-{{ include "express2.selectorLabels" . }}
+{{- define "express-helm.labels" -}}
+helm.sh/chart: {{ include "express-helm.chart" . }}
+{{ include "express-helm.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "express2.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "express2.name" . }}
+{{- define "express-helm.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "express-helm.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "express2.serviceAccountName" -}}
+{{- define "express-helm.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "express2.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "express-helm.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
