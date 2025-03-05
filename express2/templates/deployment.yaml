@@ -1,0 +1,13 @@
+spec:
+  containers:
+    - name: {{ .Chart.Name }}
+      image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+      ports:
+        - name: http
+          containerPort: 3000
+          protocol: TCP
+
+  imagePullSecrets:
+        - name: {{ .Values.variables.imagePullSecrets}}
+
+

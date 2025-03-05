@@ -1,0 +1,15 @@
+replicaCount: 1
+
+image:
+  repository: shaniulshanto80/my-express22
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+  imagePullSecrets: regcred
+
+service:
+  type: NodePort
+  port: 3000
+
+  
