@@ -136,7 +136,7 @@ volumes:
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
   - name: nfs-storage
-    mountPath: "/usr/src/app"
+    mountPath: "/srv/nfs"
     readOnly: false
 
 # Definitions for PVCs
