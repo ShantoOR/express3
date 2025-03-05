@@ -40,7 +40,7 @@ spec:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
-      {{- with .Values.volumes }}
+          volumeMounts:
+            {{- toYaml .Values.volumeMounts | nindent 12 }}
       volumes:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        {{- toYaml .Values.volumes | nindent 8 }}

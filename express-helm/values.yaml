@@ -125,3 +125,38 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+
+# Additional volumes on the output Deployment definition.
+volumes:
+  - name: nfs-storage
+    persistentVolumeClaim:
+      claimName: nfs-pvc
+
+# Additional volumeMounts on the output Deployment definition.
+volumeMounts:
+  - name: nfs-storage
+    mountPath: "/usr/src/app"
+    readOnly: false
+
+# Definitions for PVCs
+persistentVolumeClaims:
+  - name: nfs-pvc
+    accessModes:
+      - ReadWriteMany
+    storageClassName: "nfs-client"
+    resources:
+      requests:
+        storage: 1Gi
+
+
+
+
+
+
+
+
+
+
+
+
