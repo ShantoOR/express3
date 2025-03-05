@@ -8,6 +8,6 @@ spec:
           protocol: TCP
 
   imagePullSecrets:
-        - name: {{ .Values.variables.imagePullSecrets}}
+        - name: {{ .Values.imagePullSecrets}}
 
 
