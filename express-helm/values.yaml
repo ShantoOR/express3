@@ -136,18 +136,10 @@ volumes:
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
   - name: nfs-storage
-    mountPath: "/usr/src/app/counter.txt"
+    mountPath: "/usr/src/app/data"
     readOnly: false
 
-# Definitions for PVCs
-persistentVolumeClaims:
-  - name: nfs-pvc
-    accessModes:
-      - ReadWriteMany
-    storageClassName: "nfs-client"
-    resources:
-      requests:
-        storage: 1Gi
+
 
 
 

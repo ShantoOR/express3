@@ -4,9 +4,13 @@ const path = require('path');
 
 const app = express();
 const PORT = 3000;
-const FILE_PATH = path.join(__dirname, 'counter.txt');
+const FOLDER_PATH = path.join(__dirname, 'data');
+const FILE_PATH = path.join(FOLDER_PATH, 'counter.txt');
 
-// Ensure the file exists
+// Ensure the folder and file exist
+if (!fs.existsSync(FOLDER_PATH)) {
+    fs.mkdirSync(FOLDER_PATH, { recursive: true });
+}
 if (!fs.existsSync(FILE_PATH)) {
     fs.writeFileSync(FILE_PATH, '0');
 }
@@ -32,7 +36,7 @@ const writeNumber = (num) => {
 };
 
 // API to increase the number
-app.get('/increase', (req, res) => {
+app.post('/increase', (req, res) => {
     const currentNumber = readNumber();
     const newNumber = currentNumber + 1;
     writeNumber(newNumber);
@@ -40,7 +44,7 @@ app.get('/increase', (req, res) => {
 });
 
 // API to decrease the number
-app.get('/decrease', (req, res) => {
+app.post('/decrease', (req, res) => {
     const currentNumber = readNumber();
     const newNumber = currentNumber - 1;
     writeNumber(newNumber);
