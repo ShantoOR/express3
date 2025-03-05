@@ -6,7 +6,6 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
-  imagePullSecrets: regcred
 
 service:
   type: NodePort
@@ -14,3 +13,5 @@ service:
 
 serviceAccount:
       create: true
+
+imagePullSecrets: regcred
