@@ -1,0 +1,15 @@
+apiVersion: policy.karmada.io/v1alpha1
+kind: PropagationPolicy
+metadata:
+  name: nfs-pvc-propagation
+  namespace: default
+spec:
+  resourceSelectors:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: nfs-pvc
+  placement:
+    clusterAffinity:
+      clusterNames:
+        - nfssync1
+        - nfssync2
