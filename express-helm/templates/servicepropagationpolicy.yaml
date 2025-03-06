@@ -1,7 +1,7 @@
 apiVersion: policy.karmada.io/v1alpha1
 kind: PropagationPolicy
 metadata:
-  name: express-propagation-policy
+  name: service-propagation-policy
   namespace: default
 spec:
   resourceSelectors:
