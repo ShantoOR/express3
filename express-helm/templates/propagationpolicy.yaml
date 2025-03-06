@@ -1,0 +1,27 @@
+apiVersion: policy.karmada.io/v1alpha1
+kind: PropagationPolicy
+metadata:
+  name: express-propagationpolicy
+spec:
+  resourceSelectors:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: {{ include "express-helm.fullname" . }}
+  placement:
+    clusterAffinity:
+      clusterNames:
+        - nfssync1
+        - nfssync2
+    replicaScheduling:
+      replicaDivisionPreference: Weighted
+      replicaSchedulingType: Divided
+      weightPreference:
+        staticWeightList:
+          - targetCluster:
+              clusterNames:
+                - nfssync1
+            weight: 1
+          - targetCluster:
+              clusterNames:
+                - nfssync2
+            weight: 1
