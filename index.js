@@ -58,6 +58,11 @@ app.get('/makeunauthorised', (req, res) => {
     res.json({ message: 'Unauthorized successfully' });
 });
 
+// API to check authorization status
+app.get('/checkauth', (req, res) => {
+    res.json({ authorized: isAuthorized });
+});
+
 // API to increase the number
 app.get('/increase', checkAuthorization, (req, res) => {
     const currentNumber = readNumber();
