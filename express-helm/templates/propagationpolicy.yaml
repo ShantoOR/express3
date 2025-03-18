@@ -1,15 +1,15 @@
-apiVersion: policy.karmada.io/v1alpha1
-kind: PropagationPolicy
-metadata:
-  name: expressapp-deployment-propagation
-  namespace: default
-spec:
-  resourceSelectors:
-    - apiVersion: apps/v1
-      kind: Deployment
-      name:  {{ include "express-helm.fullname" . }}
-  placement:
-    clusterAffinity:
-      clusterNames:
-        - nfssync1
-        - nfssync2
+# apiVersion: policy.karmada.io/v1alpha1
+# kind: PropagationPolicy
+# metadata:
+#   name: expressapp-deployment-propagation
+#   namespace: default
+# spec:
+#   resourceSelectors:
+#     - apiVersion: apps/v1
+#       kind: Deployment
+#       name:  {{ include "express-helm.fullname" . }}
+#   placement:
+#     clusterAffinity:
+#       clusterNames:
+#         - nfssync1
+#         - nfssync2
