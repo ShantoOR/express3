@@ -7,6 +7,9 @@ const PORT = 3000;
 const FOLDER_PATH = path.join(__dirname, 'data');
 const FILE_PATH = path.join(FOLDER_PATH, 'counter.txt');
 
+// Authorization flag
+let isAuthorized = false;
+
 // Ensure the folder and file exist
 if (!fs.existsSync(FOLDER_PATH)) {
     fs.mkdirSync(FOLDER_PATH, { recursive: true });
@@ -35,8 +38,28 @@ const writeNumber = (num) => {
     }
 };
 
+// Middleware to check authorization
+const checkAuthorization = (req, res, next) => {
+    if (!isAuthorized) {
+        return res.status(403).json({ message: 'Unauthorized access' });
+    }
+    next();
+};
+
+// API to authorize
+app.get('/authorised', (req, res) => {
+    isAuthorized = true;
+    res.json({ message: 'Authorized successfully' });
+});
+
+// API to make unauthorized
+app.get('/makeunauthorised', (req, res) => {
+    isAuthorized = false;
+    res.json({ message: 'Unauthorized successfully' });
+});
+
 // API to increase the number
-app.post('/increase', (req, res) => {
+app.get('/increase', checkAuthorization, (req, res) => {
     const currentNumber = readNumber();
     const newNumber = currentNumber + 1;
     writeNumber(newNumber);
@@ -44,7 +67,7 @@ app.post('/increase', (req, res) => {
 });
 
 // API to decrease the number
-app.post('/decrease', (req, res) => {
+app.get('/decrease', checkAuthorization, (req, res) => {
     const currentNumber = readNumber();
     const newNumber = currentNumber - 1;
     writeNumber(newNumber);
@@ -52,7 +75,7 @@ app.post('/decrease', (req, res) => {
 });
 
 // API to get the current number
-app.get('/current', (req, res) => {
+app.get('/current', checkAuthorization, (req, res) => {
     const currentNumber = readNumber();
     res.json({ message: 'Current number', number: currentNumber });
 });
